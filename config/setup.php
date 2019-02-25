@@ -1,5 +1,5 @@
 <?php
-include 'db.php';
+include 'database.php';
 
 // CREATE DB
 try {
@@ -54,6 +54,7 @@ try {
   $sql = "CREATE TABLE $DB_NAME.comments (
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `userid` INT NOT NULL,
+    `galleryid` INT NOT NULL,
     `comment` VARCHAR(255) NOT NULL,
     FOREIGN KEY (userid) REFERENCES users(id),
     FOREIGN KEY (galleryid) REFERENCES gallery(id)
