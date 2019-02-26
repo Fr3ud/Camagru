@@ -7,7 +7,7 @@ function check_user($mail, $password) {
   try {
     $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $query = $dbh->prepare("SELECT id, username FROM $DB_NAME.users WHERE mail=:mail AND password=:password AND verified=1");
+    $query = $dbh->prepare("SELECT id, username FROM $DB_NAME.users WHERE mail=:mail AND password=:password AND verified=0");
     $mail = strtolower($mail);
     $password = hash("whirlpool", $password);
     $query->execute(array(':mail' => $mail, ':password' => $password));

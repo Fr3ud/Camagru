@@ -1,6 +1,45 @@
 <?php
 session_start();
 
+function send_mail($mail, $username, $token, $host) {
+  $encoding = "utf-8";
+  $from_name = "apavelko";
+  $from_mail = "apavelko@student.unit.ua";
+  $subject = "CAMAGRU - Email verification";
+
+	// Set preferences for Subject field
+	$subject_preferences = array(
+		"input-charset" => $encoding,
+		"output-charset" => $encoding,
+		"line-length" => 76,
+		"line-break-chars" => "\r\n"
+	);
+
+	// Set mail header
+	$header = "Content-type: text/html; charset=".$encoding." \r\n";
+	$header .= "From: ".$from_name." <".$from_mail."> \r\n";
+	$header .= "MIME-Version: 1.0 \r\n";
+	$header .= "Content-Transfer-Encoding: 8bit \r\n";
+	$header .= "Date: ".date("r (T)")." \r\n";
+  $header .= iconv_mime_encode("Subject", $subject, $subject_preferences);
+  
+  $message = '
+  <html>
+    <head>
+      <title>' . $subject . '</title>
+    </head>
+    <body>
+      Hello ' . htmlspecialchars($username) . ' </br>
+      To complite registration please click the link below </br>
+      <a href="http://' . $host . '/verify.php?token=' . $token . '">Verify my email</a>
+    </body>
+  </html>
+  '; 
+
+	// Send mail
+	mail($mail, $subject, $message, $header);
+}
+
 function new_user($username, $mail, $password, $host) {
   include_once '../config/database.php';
 
@@ -22,12 +61,12 @@ function new_user($username, $mail, $password, $host) {
     $query = $dbh->prepare("INSERT INTO $DB_NAME.users (username, mail, password, token) VALUES (:username, :mail, :password, :token)");
     $token = uniqid(rand(), true);
     $query->execute(array(':username' => $username, ':mail' => $mail, ':password' => $password, ':token' => $token));
-    // send_email($mail, $username, $token, $host);
+    send_mail($mail, $username, $token, $host);
 
     $_SESSION['signup'] = true;
     return (0);
   } catch (PDOException $e) {
-    $_SESSION['error'] = "ERROR!!: ".$e->getMessage();
+    $_SESSION['error'] = "ERROR: ".$e->getMessage();
   }
 }
 
