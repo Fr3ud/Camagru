@@ -26,7 +26,7 @@ function check_user($mail, $password) {
   }
 }
 
-$mail = $_POST['email'];
+$mail = $_POST['mail'];
 $password = $_POST['password'];
 
 if (($result = check_user($mail, $password)) == 1) {
