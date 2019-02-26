@@ -19,7 +19,7 @@ session_start();
     <?php } else { ?>
     <form method="post" action="forms/login.php">
       <label for="mail">Email: </label>
-      <input id="mail" name="email" placeholder="name@mail.com" type="mail">
+      <input id="mail" name="mail" placeholder="name@mail.com" type="mail">
       <label for="password">Password: </label>
       <input id="password" name="password" placeholder="password" type="password">
       <input type="submit" name="submit" value="Log in">
