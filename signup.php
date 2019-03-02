@@ -20,19 +20,19 @@ session_start();
       <label for="password">Password: </label>
       <input id="password" name="password" placeholder="Password" type="password">
       <input type="submit" name="submit" value="Sign up">
-      <span>
-        <?php
-        if ($_SESSION['error']) {
-          echo $_SESSION['error'];
-        }
-        $_SESSION['error'] = null;
-        if (isset($_SESSION['signup'])) {
-          echo "Success! Check your email!";
-          $_SESSION['signup'] = null;
-        }
-        ?>
-      </span>
-    </form>
+      </form>
+    <span>
+      <?php
+      if ($_SESSION['error']) {
+        echo $_SESSION['error'];
+      }
+      $_SESSION['error'] = null;
+      if (isset($_SESSION['signup'])) {
+        echo "Success! Check your email!";
+        $_SESSION['signup'] = null;
+      }
+      ?>
+    </span>
   </div>
   <?php include('footer.php') ?>
 </body>
