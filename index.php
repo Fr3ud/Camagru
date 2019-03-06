@@ -25,16 +25,16 @@ session_start();
       <input type="submit" name="submit" value="Log in">
       <a href="signup.php">Sign up</a>
       <a href="forgot.php">Forgot password?</a>
-      <span>
-        <?php
-        if ($_SESSION['error']) {
-          echo $_SESSION['error'];
-        }
-        $_SESSION['error'] = null;
-        ?>
-      </span>
     </form>
-      <?php } ?>
+    <span>
+      <?php
+      if ($_SESSION['error']) {
+        echo $_SESSION['error'];
+      }
+      $_SESSION['error'] = null;
+      ?>
+    </span>
+    <?php } ?>
   </div>
   <?php include('footer.php') ?>
 </body>
