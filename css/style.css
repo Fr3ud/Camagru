@@ -1,0 +1,70 @@
+.left {
+  width: 640px;
+}
+
+.right {
+  width: 230px;
+}
+
+.objects {
+	width: 100%;
+	height: 100px;
+}
+
+.cat {
+  width: 80px;
+  height: 80px;
+}
+
+.man {
+  width: 80px;
+  height: 80px;
+}
+
+.cam {
+	position: absolute;
+  top: 545px;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background-color: rgba(162, 187, 202, 0.5);
+  text-align: center;
+  line-height: 50px;
+	font-size: 25px;
+  display: none;
+}
+.cam:hover {
+	cursor: pointer;
+	background-color: rgba(128, 154, 188, 0.5);
+}
+
+.cam_btn {
+	width: 50px;
+	height: 50px;
+}
+
+.right__photos-min {
+  width: 100%;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  transition-duration: 0.4s;
+}
+
+#cat {
+  position: absolute;
+  width: 240px;
+  height: 180px;
+  top: 115px;
+  left: 180px;
+}
+#man {
+  position: absolute;
+  width: 240px;
+  height: 180px;
+  top: 315px;
+  left: 100px;
+}
+
+#webcam {
+  display: none;
+}
