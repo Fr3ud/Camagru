@@ -4,7 +4,8 @@ const ctx = canvas.getContext('2d');
 const cam_btn = document.getElementById('cam_btn');
 const img_btn = document.getElementById('img_btn');
 const load_img = document.getElementById('load_img');
-const photos = document.getElementById('right_photos');
+const photos = document.getElementById('right__photos');
+const del = document.getElementsByClassName('del');
 
 const cat = document.getElementById('cat');
 const man = document.getElementById('man');
@@ -100,10 +101,11 @@ const getVideo = function() {
         const xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
           if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText != "") {
-            const newImg = document.createElement("IMG");
+            const newImg = document.createElement("img");
             newImg.className = "right__photos-min del";
             newImg.src = "photos/" + xhr.responseText;
             newImg.onclick = function(e) {
+              // console.log(e);
               const path = e.srcElement.src;
               const srcTab = path.split('/');
               const src = srcTab[srcTab.length - 1];
@@ -115,7 +117,7 @@ const getVideo = function() {
                 }
               };
               xhr.open('POST', './forms/remove.php', true);
-              xhr.setRequestHeader('Content-Type', 'aplication/x-www-form-urlencoded');
+              xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
               xhr.send('src=' + src);
             }
             photos.appendChild(newImg);
@@ -173,3 +175,27 @@ const onCheckboxChecked = function(checkbox) {
 }
 
 getVideo();
+
+for (let i = 0; i < del.length; i++) {
+  del[i].onclick = function(e) {
+    console.log('new  ' + e);
+    const path = (e.srcElement && e.srcElement.src) || (e.target && e.target.src);
+    console.log(path);
+    const srcTab = path.split('/');
+    // console.log(srcTab);
+    const src = srcTab[srcTab.length - 1];
+    console.log(src);
+    const xhr = new XMLHttpRequest();
+    console.log(xhr);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText == 'OK') {
+        photos.removeChild(e.srcElement || e.target);
+        console.log(photos);
+        console.log(e.srcElement);
+      }
+    };
+    xhr.open('POST', './forms/remove.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send('src=' + src);
+  }
+}

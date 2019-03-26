@@ -1,7 +1,7 @@
 <?php
 
 function add_photo($id, $path) {
-  include_once './config/database.php';
+  include_once 'config/database.php';
   
   try {
     $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -15,7 +15,7 @@ function add_photo($id, $path) {
 }
 
 function get_photos() {
-  include_once './config/database.php';
+  include_once 'config/database.php';
 
   try {
     $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -36,7 +36,7 @@ function get_photos() {
 }
 
 function del_photo($id, $img) {
-  include_once './config/database.php';
+  include_once 'config/database.php';
   
   try {
     $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -45,24 +45,24 @@ function del_photo($id, $img) {
     $query->execute(array(':img' => $img, ':userid' => $id));
     $result = $query->fetch();
 
-    if (!$result) {
+    if ($result == null) {
       $query->closeCursor();
       return (1);
     }
     $query->closeCursor();
     
-    $query = $dbh->prepare("DELETE FROM `like` WHERE galleryid=:galleryid");
+    $query = $dbh->prepare("DELETE FROM $DB_NAME.likes WHERE galleryid=:galleryid");
     $query->execute(array(':galleryid' => $result['id']));
     $query->closeCursor();
 
-    $query = $dbh->prepare("DELETE FROM $DB_NAME.comment WHERE galleryid=:galleryid");
+    $query = $dbh->prepare("DELETE FROM $DB_NAME.comments WHERE galleryid=:galleryid");
     $query->execute(array(':galleryid' => $result['id']));
     $query->closeCursor();
 
     $query = $dbh->prepare("DELETE FROM $DB_NAME.gallery WHERE img=:img AND userid=:userid");
     $query->execute(array(':img' => $img, ':userid' => $id));
     $query->closeCursor();
-    
+
     return (0);
   } catch (PDOException $e) {
     return ($e->getMessage());
@@ -70,7 +70,7 @@ function del_photo($id, $img) {
 }
 
 function load_photos($start, $num) {
-  include_once './config/database.php';
+  include_once 'config/database.php';
   
   try {
     if ($start < 0) $start = 0;
@@ -103,12 +103,12 @@ function load_photos($start, $num) {
 }
 
 function add_comment($id, $img, $comment) {
-  include_once './config/database.php';
+  include_once 'config/database.php';
 
   try {
     $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $query = $dbh->prepare("INSERT INTO $DB_NAME.comments(userid, galleryid, comment) SELECT :userid, id, :comment FROM gallery WHERE img=:img");
+    $query = $dbh->prepare("INSERT INTO $DB_NAME.comments(userid, galleryid, comment) SELECT :userid, id, :comment FROM $DB_NAME.gallery WHERE img=:img");
     $query->execute(array(':userid' => $id, ':comment' => $comment, ':img' => $img));
     return (0);
   } catch (PDOException $e) {
@@ -117,15 +117,15 @@ function add_comment($id, $img, $comment) {
 }
 
 function get_comments($img) {
-  include_once './config/database.php';
+  include 'config/database.php';
 
   try {
     $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $query = $dbh->prepare("SELECT c.comment, u.username FROM $DB_NAME.comments AS c, users AS u, gallery AS g WHERE g.img=:img AND g.id=c.galleryid AND c.userid=u.id");
+    $query = $dbh->prepare("SELECT c.comment, u.username FROM $DB_NAME.comments AS c, $DB_NAME.users AS u, $DB_NAME.gallery AS g WHERE g.img=:img AND g.id=c.galleryid AND c.userid=u.id");
     $query->execute(array(':img' => $img));
     
-    $arr = null;
+    $arr = "";
     $i = 0;
     while ($result = $query->fetch()) {
       $arr[$i] = $result;
@@ -136,19 +136,19 @@ function get_comments($img) {
 
     return ($arr);
   } catch (PDOException $e) {
-    $err = null;
+    $err = "";
     $err['error'] = $e->getMessage();
     return ($err);
   }
 }
 
 function get_userinfo($img) {
-  include_once './config/database.php';
+  include_once 'config/database.php';
 
   try {
     $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $query = $dbh->prepare("SELECT mail, username FROM $DB_NAME.users, $DB_NAME.gallery WHERE gallery.img=:img AND users.id=gallery.usersid");
+    $query = $dbh->prepare("SELECT mail, username FROM $DB_NAME.users, $DB_NAME.gallery WHERE $DB_NAME.gallery.img=:img AND $DB_NAME.users.id=gallery.usersid");
     $query->execute(array(':img' => $img));
     $result = $query->fetch();
     $query->closeCursor();
