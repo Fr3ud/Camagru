@@ -25,7 +25,7 @@ if ($photos != "" && array_key_exists("more", $photos)) {
 </head>
 <body>
   <?php include('header.php') ?>
-  <div class="feed">
+  <div id="feed">
     <?php
     echo "HELLO1";
     echo $photos;

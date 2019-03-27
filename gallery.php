@@ -15,6 +15,7 @@ $photos = get_photos();
 </head>
 <body>
   <?php include('header.php') ?>
+  <div class="main">
   <div class="left">
     <?php if (isset($_SESSION['id'])) { ?>
     <div class="objects">
@@ -56,6 +57,7 @@ $photos = get_photos();
   <?php } else { ?>
     You must login first
   <?php } ?>
+  </div>
   <?php include('footer.php') ?>
 </body>
 <?php if (isset($_SESSION['id'])) { ?>

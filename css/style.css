@@ -1,3 +1,88 @@
+#header {
+  width: 100%;
+  height: 14vw;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.logo {
+	font-family: 'Merienda One', cursive;
+	font-size: 4vw;
+	text-align:center;
+	margin: 2% 0;
+}
+
+.logo a {
+  text-decoration: none;
+  color: #FF686B;
+}
+
+nav {
+	background-color: #FF686B;
+	color: white;
+	width: 98vw;
+	display: flex;
+	margin-bottom: 5%;
+	justify-content: space-around;
+	flex-direction: row;
+}
+
+nav div:first-child {
+	margin-left: 10%;
+}
+
+nav div:last-child {
+  margin-right: 10%;
+}
+
+nav div {
+  text-align: center;
+  height: auto;
+  font-size: 1.5vw;
+  text-decoration: none;
+  padding: 2%;
+}
+
+nav div:hover{ 
+  background-color: #FFA69E;
+  cursor: pointer;
+}
+
+.main {
+  width: 890px;
+  margin: 10px auto;
+  display: flex;
+}
+
+.left {
+  width: 640px;
+  position: relative;
+}
+
+.right {
+  margin-left: 10px;
+  width: 230px;
+}
+
+.title {
+  margin-bottom: 5px;
+  background-color: #FFA69E;
+	text-align: center;
+}
+.objects {
+	width: 100%;
+	height: 115px;
+}
+
+.objects img {
+	width: 80px;
+	height: 80px;
+}
+
+#current{
+	background-color: #FFA69E;
+}
+
 .left {
   width: 640px;
 }
@@ -33,9 +118,23 @@
 	font-size: 25px;
   display: none;
 }
+
 .cam:hover {
 	cursor: pointer;
 	background-color: rgba(128, 154, 188, 0.5);
+}
+
+.img_btn {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background-color: rgba(162, 187, 202, 0.5);
+  text-align: center;
+  line-height: 50px;
+  top: 1029px;
+  font-size: 25px;
+  display: none;
 }
 
 .cam_btn {
@@ -48,6 +147,12 @@
   margin-bottom: 10px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   transition-duration: 0.4s;
+}
+
+.right__photos-min:hover {
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6),0 6px 20px 0 rgba(0,0,0,0.39);
+  filter: grayscale(100%);
 }
 
 #cat {
@@ -67,4 +172,91 @@
 
 #webcam {
   display: none;
+}
+
+.like_btn,
+.dislike_btn {
+  width: 22px;
+  height: 22px;
+  margin-top: 5px;
+}
+
+.like_btn {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.like_btn:hover,
+.dislike_btn:hover {
+  cursor: pointer;
+}
+
+.comment {
+  display: block;
+  font-size: 16px;
+  overflow-wrap: break-word;
+}
+.like_count, .dislike_count {
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+#webcam {
+  width: 100%;
+}
+
+label {
+  font-size: 18px;
+}
+
+#login {
+  width: 250px;
+  height: 300px;
+  margin: auto;
+  padding: 5px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#feed {
+	padding: .5vw;
+	display: flex;
+	font-size: 0;
+	flex-wrap: wrap;
+	flex-direction: column;
+	flex-flow: row wrap;
+}
+
+#feed .img {
+  width: 200px;
+  margin: .5vw;
+  flex: auto;
+}
+
+#feed .right__photos-min:hover {
+  filter: blur(1px);
+}
+
+footer {
+  background-color: #FF686B;
+  color: white;
+  text-align: center;
+  padding: 0.5vw;
+  margin-top:4vw;
+}
+
+@media screen and (max-width: 900px) {
+  .left { width: 400px; }
+  .cam { top: 365px; }
+  .main { width: 640px; }
+  #canvas { width: 400px;}
+  .img_btn {top: 668px;}
+}
+@media screen and (max-width: 660px) {
+  .main {display: inline; width: 450px;}
+  .right {width: 100%; max-width: 400px; margin-right: auto; margin-left: auto;}
+  .left {margin-left: auto; margin-right: auto;}
 }
