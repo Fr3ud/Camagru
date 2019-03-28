@@ -27,9 +27,6 @@ if ($photos != "" && array_key_exists("more", $photos)) {
   <?php include('header.php') ?>
   <div id="feed">
     <?php
-    echo "HELLO1";
-    echo $photos;
-    var_dump($photos);
       $gallery = "";
       if ($photos != null && $photos['error'] == null) {
         for ($i = 0; $photos[$i] && $i < $imgPP; $i++) {
@@ -38,8 +35,6 @@ if ($photos != "" && array_key_exists("more", $photos)) {
             $c .= " del";
           }
           $comments = get_comments($photos[$i]['img']);
-          echo "<br>loldasdkek<br>";
-          var_dump($comments);
           $html = "";
           $k = 0;
           while ($comments[$k] != null) {
@@ -58,9 +53,6 @@ if ($photos != "" && array_key_exists("more", $photos)) {
             . $html .
           '</div>';
         }
-        echo "<br>TEST<br>";
-        var_dump($gallery);
-        echo "HELLO1111";
         echo $gallery;
       }
     ?>
