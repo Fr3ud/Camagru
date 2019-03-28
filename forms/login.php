@@ -38,4 +38,4 @@ if (($result = check_user($mail, $password)) == 1) {
   $_SESSION['username'] = $result['username'];
 }
 
-header("Location: ../index.php");
+header("Location: ../gallery.php");

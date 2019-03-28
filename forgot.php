@@ -16,7 +16,7 @@ session_start();
     <form method="post" action="forms/forgot.php">
       <label for="mail">Email: </label>
       <input id="mail" name="mail" placeholder="name@mail.com" type="mail">
-      <input type="submit" name="submit" value="Send">
+      <input type="submit" class="sub" name="submit" value="Send">
     </form>
     <span>
       <?php

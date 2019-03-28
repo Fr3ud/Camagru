@@ -199,3 +199,65 @@ for (let i = 0; i < del.length; i++) {
     xhr.send('src=' + src);
   }
 }
+
+function sendImg(img64, filter) {
+  const xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText != "") {
+      const img = document.createElement("img");
+      img.className = "right__photos-min del";
+      img.src = "photos/" + xhr.responseText;
+      img.onclick = function(e) {
+        const path = (e.srcElement && e.srcElement.src) || (e.target && e.target.src);
+        const tab = path.split('/');
+        const src = tab[tab.length - 1];
+
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText == "OK") {
+            photos.removeChild(e.srcElement || e.target);
+          }
+        };
+        xhr.open("POST", "./forms/remove.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send(`src=${src}`);
+      }
+      photos.appendChild(img);
+    }
+  };
+  xhr.open("POST", "./forms/photos.php", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.send(`img=../img/${filter}&f=${img64}`);
+}
+
+load_img.onchange = function (e) {
+  const file = this.files[0];
+  const img = new Image();
+  const newImg = new Image();
+
+  canvas.style.display = "block";
+  img.addEventListener("load", function(e) {
+      ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, 640, 480);
+      const img64 = canvas.toDataURL(img.type);
+      window.URL.revokeObjectURL(file);
+
+      newImg.src = document.querySelector('input[name="img"]:checked').value;
+      const split = newImg.src.split("/");
+      const name = split[split.length - 1];
+
+      if (name === "cat.png") {
+        ctx.drawImage(newImg, 0, 0, 1024, 768, 0, 0, 640, 480);
+      } else if (name === "man.png") {
+        ctx.drawImage(newImg, 0, 0, 1024, 768, 100, 200, 240, 180);
+      } else {
+        ctx.drawImage(newImg, 0, 0, 1024, 768, 180, 0, 240, 180);
+      }
+
+      img_btn.onclick = function () {
+        sendImg(img64, name);
+      }
+  }, false);
+
+  img.src = window.URL.createObjectURL(this.files[0]);
+  img_btn.style.display = "block";
+}

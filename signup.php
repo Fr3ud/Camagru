@@ -20,7 +20,7 @@ session_start();
       <input id="mail" name="mail" placeholder="name@mail.com" type="mail">
       <label for="password">Password: </label>
       <input id="password" name="password" placeholder="Password" type="password">
-      <input type="submit" name="submit" value="Sign up">
+      <input type="submit" class="signup" name="submit" value="Sign up">
       </form>
     <span>
       <?php

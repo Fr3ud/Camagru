@@ -3,7 +3,7 @@ session_start();
 include_once("./photos.php");
 include_once("./likes.php");
 
-$imgPP = 5;
+$imgPP = 100500;
 $photos = load_photos(0, $imgPP);
 $more = false;
 $last = 0;
@@ -74,7 +74,7 @@ if ($photos != "" && array_key_exists("more", $photos)) {
     </div>
   </div>
   <?php if ($more == true) { ?>
-    <div id="more" onclick="loadMore(<?php echo($last) ?>, <?php echo($imgPP) ?>">load more</div>
+    <div id="more" onclick="loadMore(<?php echo($last) ?>, <?php echo($imgPP) ?>)">load more</div>
   <?php } ?>
   <?php include('footer.php') ?>
 </body>

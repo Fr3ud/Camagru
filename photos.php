@@ -125,7 +125,7 @@ function get_comments($img) {
     $query = $dbh->prepare("SELECT c.comment, u.username FROM $DB_NAME.comments AS c, $DB_NAME.users AS u, $DB_NAME.gallery AS g WHERE g.img=:img AND g.id=c.galleryid AND c.userid=u.id");
     $query->execute(array(':img' => $img));
     
-    $arr = "";
+    $arr = [];
     $i = 0;
     while ($result = $query->fetch()) {
       $arr[$i] = $result;

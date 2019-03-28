@@ -22,9 +22,11 @@ session_start();
       <input id="mail" name="mail" placeholder="name@mail.com" type="mail">
       <label for="password">Password: </label>
       <input id="password" name="password" placeholder="password" type="password">
-      <input type="submit" name="submit" value="Log in">
-      <a href="signup.php">Sign up</a>
-      <a href="forgot.php">Forgot password?</a>
+      <input type="submit" class="sub" name="submit" value="Log in">
+      <div class="links">
+        <a href="signup.php">Sign up</a>
+        <a href="forgot.php">Forgot password?</a>
+      </div>
     </form>
     <span>
       <?php

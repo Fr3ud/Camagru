@@ -60,7 +60,7 @@ function update_likes($id, $img, $type) {
   try {
       $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
       $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query = $dbh->prepare("UPDATE $DB_NAME.likes, $DB_NAME.gallery SET $DB_NAME.likes.type=:type WHERE $DB_NAME.gallery.img=:img AND $DB_NAME.gallery.userid=:userid AND $DB_NAME.likes.galleryid=gallery.id");
+      $query = $dbh->prepare("UPDATE $DB_NAME.likes, $DB_NAME.gallery SET $DB_NAME.likes.type=:type WHERE $DB_NAME.gallery.img=:img AND $DB_NAME.likes.userid=:userid AND $DB_NAME.likes.galleryid=gallery.id");
       $query->execute(array(':userid' => $id, ':img' => $img, ':type' => $type));
       return (0);
     } catch (PDOException $e) {

@@ -5,7 +5,7 @@ include 'database.php';
 try {
   $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "CREATE DATABASE $DB_NAME";
+  $sql = "CREATE DATABASE IF NOT EXISTS $DB_NAME";
   $dbh->exec($sql);
   echo "Database created successfully\n";
 } catch (PDOException $e) {
@@ -17,7 +17,7 @@ try {
 try {
   $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "CREATE TABLE $DB_NAME.users (
+  $sql = "CREATE TABLE IF NOT EXISTS $DB_NAME.users (
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `mail` VARCHAR(255) NOT NULL UNIQUE,
     `username` VARCHAR(255) NOT NULL UNIQUE,
@@ -35,7 +35,7 @@ try {
 try {
   $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "CREATE TABLE $DB_NAME.gallery (
+  $sql = "CREATE TABLE IF NOT EXISTS $DB_NAME.gallery (
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `userid` INT NOT NULL,
     `img` VARCHAR(255) NOT NULL,
@@ -51,7 +51,7 @@ try {
 try {
   $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "CREATE TABLE $DB_NAME.comments (
+  $sql = "CREATE TABLE IF NOT EXISTS $DB_NAME.comments (
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `userid` INT NOT NULL,
     `galleryid` INT NOT NULL,
@@ -69,7 +69,7 @@ try {
 try {
   $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "CREATE TABLE $DB_NAME.likes (
+  $sql = "CREATE TABLE IF NOT EXISTS $DB_NAME.likes (
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `userid` INT NOT NULL,
     `galleryid` INT NOT NULL,
