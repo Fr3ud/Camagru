@@ -23,10 +23,13 @@ $photos = get_photos();
       <input id="cat_icon" type="radio" name="img" value="./img/cat.png" onclick="onCheckboxChecked(this)">
       <img src="img/man.png" alt="man" class="man">
       <input id="man_icon" type="radio" name="img" value="./img/man.png" onclick="onCheckboxChecked(this)">
+      <img src="img/sasha.png" alt="sasha" class="sasha">
+      <input id="sasha_icon" type="radio" name="img" value="./img/sasha.png" onclick="onCheckboxChecked(this)">
     </div>
     <video id="webcam" autoplay="true"></video>
     <img src="img/cat.png" alt="cat" id="cat" style="display:none;">
     <img src="img/man.png" alt="man" id="man" style="display:none;">
+    <img src="img/sasha.png" alt="sasha" id="sasha" style="display:none;">
     <div id="cam_btn" class="cam">
       <img src="img/cam.png" alt="camera" class="cam_btn">
     </div>
@@ -47,8 +50,15 @@ $photos = get_photos();
             if ($photos[$i]['userid'] === $_SESSION['id']) {
               $class .= " del";
             }
+            
             $name = get_username($photos[$i]['img']);
-            $gallery .= "<img class=\"" . $class . "\" src=\"./photos/" . $photos[$i]['img'] . "\" data-userid=\"" . $photos[$i]['userid'] . "\"><br>" . $name['username'] . "<br>";
+            if ($i % 2) {
+              $c = " odd";
+            } else {
+              $c = " even";
+            }
+            $class .= $c;
+            $gallery .= "<img class=\"" . $class . "\" src=\"./photos/" . $photos[$i]['img'] . "\" data-userid=\"" . $photos[$i]['userid'] . "\"><br>" . "<span class=\"tag" .$c . "\">" . $name['username'] . "</span><br>";
           }
           echo $gallery;
         }

@@ -41,9 +41,16 @@ if ($photos != "" && array_key_exists("more", $photos)) {
             $html .= '<span class="comment">' . htmlspecialchars($comments[$k]['username']) .': ' . htmlspecialchars($comments[$k]['comment']) . '</span>';
             $k++;
           }
+          $name = get_username($photos[$i]['img']);
+          // if ($i % 2) {
+          //   $c1 = " odd";
+          // } else {
+          //   $c1 = " even";
+          // }
+          // $c .= $c1;
           $gallery .= '
           <div class="img" data-img="' . $photos[$i]['img'] . '">
-            <img class="' . $c . '" src="photos/' . $photos[$i]['img'] . '">
+            <img class="' . $c . '" src="photos/' . $photos[$i]['img'] . '"><span class="tag">' . $name['username'] . '</span>
             <div id="btns">
               <img class="like_btn" src="img/like.png" data-image="' . $photos[$i]['img'] . '">
               <span class="like_count" data-src="' .$photos[$i]['img'] . '">' . get_likes($photos[$i]['img']) . '</span>

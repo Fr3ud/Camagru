@@ -96,12 +96,7 @@ nav div:hover{
   width: 230px;
 }
 
-.cat {
-  width: 80px;
-  height: 80px;
-}
-
-.man {
+.cat, .man, .sasha {
   width: 80px;
   height: 80px;
 }
@@ -149,7 +144,6 @@ nav div:hover{
   transition-duration: 0.4s;
   padding: 0.8rem 0.8rem 2.5rem 0.8rem;
   box-shadow: 0 0 3px rgba(0,0,0,0.2);
-  background: white;
 }
 
 .right__photos-min:hover {
@@ -163,17 +157,25 @@ nav div:hover{
 
 #cat {
   position: absolute;
-  width: 240px;
-  height: 180px;
-  top: 115px;
-  left: 180px;
+  top: 100px;
+  width: 320px;
+  height: 480px;
+  left: 20px;
 }
 #man {
   position: absolute;
-  width: 240px;
-  height: 180px;
-  top: 315px;
-  left: 100px;
+  width: 396px;
+  height: 480px;
+  top: 115px;
+  right: 0;
+}
+
+#sasha {
+  position: absolute;
+  width: 396px;
+  height: 480px;
+  top: 115px;
+  right: 0;
 }
 
 #webcam {
@@ -215,6 +217,10 @@ label {
   font-size: 18px;
 }
 
+#btns {
+  margin-top: 10px;
+}
+
 #login {
   width: 250px;
   height: 300px;
@@ -230,7 +236,6 @@ label {
 #feed {
 	padding: .5vw;
 	display: flex;
-	font-size: 0;
 	flex-wrap: wrap;
 	flex-direction: column;
 	flex-flow: row wrap;
@@ -238,7 +243,7 @@ label {
 
 #feed .img {
   width: 200px;
-  margin: .5vw;
+  margin: 1.5vw;
   flex: auto;
 }
 
@@ -409,7 +414,38 @@ footer {
   transition-duration: 0.4s;
 }
 
+.tag {
+  font-family: 'Merienda One', cursive;
+  margin-top: -45px;
+  display: block;
+  text-align: center;
+}
+
+.even {
+  transform: rotate(4deg);
+}
+
+.odd {
+  transform: rotate(-5deg);
+}
+
+
 @media screen and (max-width: 900px) {
+  #cat {
+    top: 150px;
+    width: 160px;
+    height: 240px;
+  }
+  #man {
+    width: 260px;
+    height: 300px;
+    top: 115px;
+  }
+  #sasha {
+    width: 260px;
+    height: 300px;
+    top: 115px;
+  }
   .left { width: 400px; }
   .cam { top: 365px; }
   .main { width: 640px; }

@@ -37,7 +37,8 @@ function send_mail($mail, $username, $token, $host) {
   '; 
 
 	// Send mail
-	mail($mail, $subject, $message, $header);
+  $test = mail($mail, $subject, $message, $header);
+  return $test;
 }
 
 function new_user($username, $mail, $password, $host) {
@@ -61,9 +62,9 @@ function new_user($username, $mail, $password, $host) {
     $query = $dbh->prepare("INSERT INTO $DB_NAME.users (username, mail, password, token) VALUES (:username, :mail, :password, :token)");
     $token = uniqid(rand(), true);
     $query->execute(array(':username' => $username, ':mail' => $mail, ':password' => $password, ':token' => $token));
-    send_mail($mail, $username, $token, $host);
+    
 
-    $_SESSION['signup'] = true;
+    $_SESSION['signup'] = send_mail($mail, $username, $token, $host);
     return (0);
   } catch (PDOException $e) {
     $_SESSION['error'] = "ERROR: ".$e->getMessage();
@@ -73,6 +74,10 @@ function new_user($username, $mail, $password, $host) {
 $username = $_POST['username'];
 $mail = $_POST['mail'];
 $password = $_POST['password'];
+$uppercase = preg_match('@[A-Z]@', $password);
+$lowercase = preg_match('@[a-z]@', $password);
+$number    = preg_match('@[0-9]@', $password);
+
 
 $_SESSION['error'] = null;
 
@@ -94,7 +99,7 @@ if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
   return;
 }
 
-if (strlen($password) < 6 || strlen($password) > 32) {
+if (!$uppercase || !$lowercase || !$number || strlen($password) < 6 || strlen($password) > 32) {
   $_SESSION['error'] = "Password must be between 6 and 32 characters long!";
   header("Location: ../signup.php");
   return;

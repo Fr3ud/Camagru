@@ -9,6 +9,7 @@ const del = document.getElementsByClassName('del');
 
 const cat = document.getElementById('cat');
 const man = document.getElementById('man');
+const sasha = document.getElementById('sasha');
 
 let available = false;
 
@@ -75,7 +76,7 @@ load_img.onchange = function(e) {
 const getVideo = function() {
   navigator.mediaDevices.getUserMedia({ video: true, audio: false })
     .then(localMediaStream => {
-      console.log(localMediaStream);
+
       video.srcObject = localMediaStream;
       // video.play();
       available = true;
@@ -139,7 +140,13 @@ const onCheckboxChecked = function(checkbox) {
     if (checkbox.id === 'cat_icon') {
       cat.style.display = 'block';
       man.style.display = 'none';
+      sasha.style.display = 'none';
+    } else if (checkbox.id === 'sasha_icon') {
+      sasha.style.display = 'block';
+      cat.style.display = 'none';
+      man.style.display = 'none';
     } else {
+      sasha.style.display = 'none';
       cat.style.display = 'none';
       man.style.display = 'block';
     }
@@ -178,20 +185,20 @@ getVideo();
 
 for (let i = 0; i < del.length; i++) {
   del[i].onclick = function(e) {
-    console.log('new  ' + e);
+    // console.log('new  ' + e);
     const path = (e.srcElement && e.srcElement.src) || (e.target && e.target.src);
-    console.log(path);
+    // console.log(path);
     const srcTab = path.split('/');
     // console.log(srcTab);
     const src = srcTab[srcTab.length - 1];
-    console.log(src);
+    // console.log(src);
     const xhr = new XMLHttpRequest();
-    console.log(xhr);
+    // console.log(xhr);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText == 'OK') {
         photos.removeChild(e.srcElement || e.target);
-        console.log(photos);
-        console.log(e.srcElement);
+        // console.log(photos);
+        // console.log(e.srcElement);
       }
     };
     xhr.open('POST', './forms/remove.php', true);
@@ -248,9 +255,9 @@ load_img.onchange = function (e) {
       if (name === "cat.png") {
         ctx.drawImage(newImg, 0, 0, 1024, 768, 0, 0, 640, 480);
       } else if (name === "man.png") {
-        ctx.drawImage(newImg, 0, 0, 1024, 768, 100, 200, 240, 180);
+        ctx.drawImage(newImg, 0, 0, 1024, 768, 0, 0, 1080, 480);
       } else {
-        ctx.drawImage(newImg, 0, 0, 1024, 768, 180, 0, 240, 180);
+        ctx.drawImage(newImg, 0, 0, 1024, 768, 0, 0, 1080, 0);
       }
 
       img_btn.onclick = function () {

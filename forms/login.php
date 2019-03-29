@@ -31,11 +31,14 @@ $password = $_POST['password'];
 
 if (($result = check_user($mail, $password)) == 1) {
   $_SESSION['error'] = "You have entered an invalid username or password";
+  header("Location: ../index.php");
 } else if (isset($result['error'])) {
   $_SESSION['error'] = $result['error'];
+  header("Location: ../index.php");
 } else {
   $_SESSION['id'] = $result['id'];
   $_SESSION['username'] = $result['username'];
+  header("Location: ../gallery.php");
 }
 
-header("Location: ../gallery.php");
+

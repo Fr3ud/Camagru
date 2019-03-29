@@ -18,11 +18,11 @@ if (!file_exists($dir)) {
 }
 
 file_put_contents($dir . $uid . '.png', $data);
-$cp = imagecreatetruecolor(240, 180);
+$cp = imagecreatetruecolor(375, 640);
 imagealphablending($cp, false);
 imagesavealpha($cp, true);
 $src = imagecreatefrompng($img);
-imagecopyresized($cp, $src, 0, 0, 0, 0, 440, 180, 1024, 768);
+imagecopyresized($cp, $src, 0, 0, 0, 0, 640, 480, 1024, 768);
 $dest = imagecreatefrompng($dir . $uid . '.png');
 
 $lsrc = imagesx($cp);
@@ -32,10 +32,13 @@ $hdest = imagesy($dest);
 
 // move
 if (strcmp($img, '../img/cat.png') == 0) {
-  $dest_x = 200;
-  $dest_y = 200;
+  $dest_x = 0;
+  $dest_y = 20;
+} else if (strcmp($img, '../img/sasha.png') == 0) {
+  $dest_x = 270;
+  $dest_y = 25;
 } else {
-  $dest_x = 180;
+  $dest_x = 270;
   $dest_y = 0;
 }
 
