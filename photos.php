@@ -160,4 +160,24 @@ function get_userinfo($img) {
     return ($err);
   }
 }
+
+function get_username($img) {
+  include 'config/database.php';
+
+  try {
+    $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $query = $dbh->prepare("SELECT username FROM $DB_NAME.users, $DB_NAME.gallery WHERE $DB_NAME.gallery.img=:img AND $DB_NAME.users.id=$DB_NAME.gallery.userid");
+    // $query = $dbh->prepare("SELECT mail FROM $DB_NAME.users");
+    $query->execute(array(':img' => $img));
+    $result = $query->fetch();
+    $query->closeCursor();
+
+    return ($result);
+  } catch (PDOException $e) {
+    $err = null;
+    $err['error'] = $e->getMessage();
+    return ($err);
+  }
+}
 ?>

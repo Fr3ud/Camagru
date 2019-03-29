@@ -30,7 +30,7 @@ $mail = $_POST['mail'];
 $password = $_POST['password'];
 
 if (($result = check_user($mail, $password)) == 1) {
-  $_SESSION['error'] = "user not found";
+  $_SESSION['error'] = "You have entered an invalid username or password";
 } else if (isset($result['error'])) {
   $_SESSION['error'] = $result['error'];
 } else {

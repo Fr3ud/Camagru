@@ -47,7 +47,8 @@ $photos = get_photos();
             if ($photos[$i]['userid'] === $_SESSION['id']) {
               $class .= " del";
             }
-            $gallery .= "<img class=\"" . $class . "\" src=\"./photos/" . $photos[$i]['img'] . "\" data-userid=\"" . $photos[$i]['userid'] . "\">";
+            $name = get_username($photos[$i]['img']);
+            $gallery .= "<img class=\"" . $class . "\" src=\"./photos/" . $photos[$i]['img'] . "\" data-userid=\"" . $photos[$i]['userid'] . "\"><br>" . $name['username'] . "<br>";
           }
           echo $gallery;
         }
