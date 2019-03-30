@@ -47,7 +47,8 @@ $success = imagepng($dest, $dir . $uid . ".png");
 
 if ($success) {
   if (($result = add_photo($id, $uid . '.png')) === 0) {
-      echo ($uid . '.png');
+      $name = get_username($uid . '.png');
+      echo ($uid . '.png/' . $name['username']);
   } else {
     echo $result;
   }

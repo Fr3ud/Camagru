@@ -13,10 +13,10 @@ session_start();
 </head>
 <body>
   <?php include('header.php') ?>
-  <div id="login">
     <?php if(isset($_SESSION['id'])) { ?>
       You're connected as <?php print_r(htmlspecialchars($_SESSION['username'])) ?>
     <?php } else { ?>
+  <div id="login">
     <form method="post" action="forms/login.php">
       <label for="mail">Email: </label>
       <input id="mail" name="mail" placeholder="name@mail.com" type="mail">

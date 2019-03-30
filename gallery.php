@@ -58,7 +58,7 @@ $photos = get_photos();
               $c = " even";
             }
             $class .= $c;
-            $gallery .= "<img class=\"" . $class . "\" src=\"./photos/" . $photos[$i]['img'] . "\" data-userid=\"" . $photos[$i]['userid'] . "\"><br>" . "<span class=\"tag" .$c . "\">" . $name['username'] . "</span><br>";
+            $gallery .= "<img class=\"" . $class . "\" src=\"./photos/" . $photos[$i]['img'] . "\" data-userid=\"" . $photos[$i]['userid'] . "\"><br>" . "<span class=\"tag" . $c . "\">" . $name['username'] . "</span><br>";
           }
           echo $gallery;
         }

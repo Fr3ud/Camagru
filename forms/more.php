@@ -16,14 +16,14 @@ $photos = [];
 
 $photos = load_photos($id, $num);
 for ($i = 0; $i < count($photos); $i++) {
-  $photos[$i]['dislikes'] = get_dislikes($photos[$i]['img']);
-  $photos[$i]['likes'] = get_likes($photos[$i]['img']);
-  $comments = get_comments($photos[$i]['img']);
-  if ($comments[0] != null) {
-    $photos[$i]['comments'] = $comments;
-  } else {
-    $photos[$i]['comments'] = null;
-  }
+  // $photos[$i]['dislikes'] = get_dislikes($photos[$i]['img']);
+//   $photos[$i]['likes'] = get_likes($photos[$i]['img']);
+//   $comments = get_comments($photos[$i]['img']);
+//   if ($comments[0] != null) {
+//     $photos[$i]['comments'] = $comments;
+//   } else {
+//     $photos[$i]['comments'] = null;
+//   }
 }
 
 if (count($photos) <= 0) {

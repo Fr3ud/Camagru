@@ -12,6 +12,7 @@ const man = document.getElementById('man');
 const sasha = document.getElementById('sasha');
 
 let available = false;
+let count = 0;
 
 const sendPhoto = function(img64, filter) {
   const xhr = new XMLHttpRequest();
@@ -92,6 +93,7 @@ const getVideo = function() {
           }
         }, false);
 
+
         img.src = document.querySelector('input[name="img"]:checked').value;
         const split = img.src.split('/');
         const file = split[split.length - 1];
@@ -102,11 +104,21 @@ const getVideo = function() {
         const xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
           if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText != "") {
+            let tmp = xhr.responseText.split('/');
             const newImg = document.createElement("img");
-            newImg.className = "right__photos-min del";
-            newImg.src = "photos/" + xhr.responseText;
+            const newSpan = document.createElement('span');
+
+            if (count % 2) {
+              newImg.className = "right__photos-min del odd";
+              newSpan.className = 'tag odd';
+            } else {
+              newImg.className = "right__photos-min del even";
+              newSpan.className = 'tag even';
+            }
+            count++;
+            newSpan.innerText = tmp[1];
+            newImg.src = "photos/" + tmp[0];
             newImg.onclick = function(e) {
-              // console.log(e);
               const path = e.srcElement.src;
               const srcTab = path.split('/');
               const src = srcTab[srcTab.length - 1];
@@ -114,6 +126,7 @@ const getVideo = function() {
               const xhr = new XMLHttpRequest();
               xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText == "OK") {
+                  photos.removeChild(e.srcElement.nextElementSibling);
                   photos.removeChild(e.srcElement);
                 }
               };
@@ -122,6 +135,7 @@ const getVideo = function() {
               xhr.send('src=' + src);
             }
             photos.appendChild(newImg);
+            photos.appendChild(newSpan);
           }
         };
         xhr.open('POST', './forms/photos.php', true);
@@ -196,9 +210,10 @@ for (let i = 0; i < del.length; i++) {
     // console.log(xhr);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText == 'OK') {
+        photos.removeChild(e.srcElement.nextElementSibling);
+        photos.removeChild(e.srcElement.nextElementSibling);
+        photos.removeChild(e.srcElement.nextElementSibling);
         photos.removeChild(e.srcElement || e.target);
-        // console.log(photos);
-        // console.log(e.srcElement);
       }
     };
     xhr.open('POST', './forms/remove.php', true);
@@ -211,9 +226,20 @@ function sendImg(img64, filter) {
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText != "") {
+      let tmp = xhr.responseText.split('/');
+      const newSpan = document.createElement('span');
       const img = document.createElement("img");
-      img.className = "right__photos-min del";
-      img.src = "photos/" + xhr.responseText;
+
+      if (count % 2) {
+        img.className = "right__photos-min del odd";
+        newSpan.className = 'tag odd';
+      } else {
+        img.className = "right__photos-min del even";
+        newSpan.className = 'tag even';
+      }
+      count++;
+      newSpan.innerText = tmp[1];
+      img.src = "photos/" + tmp[0];
       img.onclick = function(e) {
         const path = (e.srcElement && e.srcElement.src) || (e.target && e.target.src);
         const tab = path.split('/');
@@ -222,6 +248,7 @@ function sendImg(img64, filter) {
         const xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
           if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText == "OK") {
+            photos.removeChild(e.srcElement.nextElementSibling);
             photos.removeChild(e.srcElement || e.target);
           }
         };
@@ -230,6 +257,7 @@ function sendImg(img64, filter) {
         xhr.send(`src=${src}`);
       }
       photos.appendChild(img);
+      photos.appendChild(newSpan);
     }
   };
   xhr.open("POST", "./forms/photos.php", true);

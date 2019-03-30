@@ -82,21 +82,21 @@ let d = [];
 
 const add_like = function(src) {
   let span = document.querySelectorAll(`[data-src="${src}"]`)[0];
-  console.log(`like SPAN 1: ${span}`);
+  // console.log(`like SPAN 1: ${span}`);
   span.innerHTML = eval(span.innerHTML * 1 + 1);
   l[src] = true;
 
   if (d == [] || d[src] == undefined || d[src] == null) return;
 
   span = document.querySelectorAll(`[data-src="${src}"]`)[1];
-  console.log(`like SPAN 2: ${span}`);
+  // console.log(`like SPAN 2: ${span}`);
   span.innerHTML = eval(span.innerHTML * 1 - 1);
   d[src] = null;
 }
 
 const add_dislike = function(src) {
   let span = document.querySelectorAll(`[data-src="${src}"]`)[1];
-  console.log(`dislike SPAN 1: ${span}`);
+  // console.log(`dislike SPAN 1: ${span}`);
   
   span.innerHTML = eval(span.innerHTML * 1 + 1);
   d[src] = true;
@@ -104,7 +104,7 @@ const add_dislike = function(src) {
   if (l == [] || l[src] == undefined || l[src] == null) return;
   
   span = document.querySelectorAll(`[data-src="${src}"]`)[0];
-  console.log(`dislike SPAN 2: ${span}`);
+  // console.log(`dislike SPAN 2: ${span}`);
   span.innerHTML = eval(span.innerHTML * 1 - 1);
   l[src] = null;
 }
@@ -157,7 +157,7 @@ const loadMore = function(id, iPP) {
       if (xhr.responseText === 'error') return;
 
       const res = JSON.parse(xhr.responseText);
-      last = res[res.length - 1]['id'];
+      last = res[Object.keys(res).length - 2]['id'];
       for (let i = 0; res[i]; i++) {
         const div = document.createElement('div');
         const html = '';

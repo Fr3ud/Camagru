@@ -200,9 +200,17 @@ nav div:hover{
 }
 
 .comment {
+  width: 100%;
+  /* height: 150px; */
+  margin: 4px auto;
   display: block;
   font-size: 16px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  padding: 6px;
   overflow-wrap: break-word;
+  color: #524349;
+  font-family: sans-serif;
 }
 .like_count, .dislike_count {
   font-size: 14px;
@@ -427,6 +435,11 @@ footer {
 
 .odd {
   transform: rotate(-5deg);
+}
+
+nav div#hello:hover {
+  background-color: #FF686B;
+  cursor: default;
 }
 
 
