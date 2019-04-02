@@ -114,7 +114,7 @@ for (let i = 0; i < likes.length; i++) {
     const src = (e.srcElement && e.srcElement.getAttribute('data-image') || e.target.getAttribute('data-image'));
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
-      console.log(xhr.responseText);
+      // console.log(xhr.responseText);
       if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == 'add') {
         add_like(src);
       } else if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == 'new') {
@@ -146,6 +146,40 @@ for (let i = 0; i < dislikes.length; i++) {
   }
 }
 
+
+function like(el) {
+  const src = el.getAttribute('data-image');
+  const xhr = new XMLHttpRequest();
+  
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == 'add') {
+      add_like(src);
+    } else if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == 'new') {
+      d[src] = true;
+      add_like(src);
+    }
+  };
+  xhr.open('POST', './forms/like.php', true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.send(`img=${src}&type=L`);
+}
+
+function dislike(el) {
+  const src = el.getAttribute('data-image');
+  const xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == 'add') {
+      add_dislike(src);
+    } else if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == 'new') {
+      l[src] = true;
+      add_dislike(src);
+    }
+  };
+  xhr.open('POST', './forms/like.php', true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.send(`img=${src}&type=D`);
+}
+
 const loadMore = function(id, iPP) {
   if (last != null) {
     id = last;
@@ -155,19 +189,22 @@ const loadMore = function(id, iPP) {
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText != '') {
       if (xhr.responseText === 'error') return;
-
+        
+      
+      // console.log(xhr.responseText);
       const res = JSON.parse(xhr.responseText);
+      // console.log(res);
       last = res[Object.keys(res).length - 2]['id'];
       for (let i = 0; res[i]; i++) {
         const div = document.createElement('div');
-        const html = '';
+        let html = '';
 
         for (let j = 0; res[i]['comments'] != null && res[i]['comments'][j] != null; j++) {
           html += `<span class="comment">${saveMyHTML(res[i]['comments'][j]['username'])}: ${saveMyHTML(res[i]['comments'][j]['comment'])}</span>`;
         }
 
         div.innerHTML =
-        `<img onclick="showWin(${res[i]['img']});" class="right__photos-min del" src="photos/${res[i]['img']}">
+        `<img onclick="showWin('${res[i]['img']}');" class="right__photos-min del" src="photos/${res[i]['img']}">
         <div id="like_btn">
           <img onclick="like(this);" class="like_btn" src="img/like.png" data-image="${res[i]['img']}">
           <span class="like_count" data-src="${res[i]['img']}">${res[i]['likes']}</span>
@@ -187,37 +224,4 @@ const loadMore = function(id, iPP) {
   xhr.open('POST', './forms/more.php', true);
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.send(`id=${id}&num=${iPP}`);
-}
-
-function like(el) {
-  const src = el.getAttribute('data-image');
-  const xhr = new XMLHttpRequest();
-
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == 'add') {
-      add_like(src);
-    } else if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == 'new') {
-      d[src] = true;
-      add_like(src);
-    }
-  };
-  xhr.open('POST', './forms/like.php', true);
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  xhr.send(`img=${src}&type=L`);
-}
-
-function onDislike(srcElement) {
-  var src = srcElement.getAttribute('data-image');
-  const xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == 'add') {
-      add_dislike(src);
-    } else if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0) && xhr.responseText != null && xhr.responseText == 'new') {
-      l[src] = true;
-      add_dislike(src);
-    }
-  };
-  xhr.open('POST', './forms/like.php', true);
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  xhr.send(`img=${src}&type=D`);
 }

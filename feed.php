@@ -81,7 +81,6 @@ if ($photos != "" && array_key_exists("more", $photos)) {
     </div>
   </div>
   <?php if ($more == true) { ?>
-    <?php echo($last) ?>
     <div id="more" onclick="loadMore(<?php echo($last) ?>, <?php echo($imgPP) ?>)">load more</div>
   <?php } ?>
   <?php include('footer.php') ?>

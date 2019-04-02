@@ -21,9 +21,6 @@
       <div class="button" onclick="location.href='index.php'">
         <span>Login</span>
       </div>
-      <div class="button" id="hello" onclick="location.href='#'">
-        <span> <?php print_r("Hello " . htmlspecialchars($_SESSION['username'] . "!" )) ?></span>
-      </div>
     <?php } ?>
     </nav>
 </header>
