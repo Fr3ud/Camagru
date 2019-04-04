@@ -437,10 +437,10 @@ footer {
   transform: rotate(-5deg);
 }
 
-nav div#hello:hover {
+/* nav div#hello:hover {
   background-color: #FF686B;
   cursor: default;
-}
+} */
 
 #more {
   width: 80px;
